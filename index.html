@@ -9,40 +9,38 @@
 </head>
 
 <body>
-    <h1>PawTrack</h1>
+    <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+
+    <div class="header">
+        <nav>
+            <a href="#add-pet">Add</a>
+            <a href="#viewPetsBtn">View</a>
+            <a href="#searchForm">Search</a>
+        </nav>
+        <h1>PawTrack</h1>
+    </div>
 
     <h2>Add a Pet</h2>
-    <form action="/add-pet" method="POST">
-        <label for="name">Pet Name:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="breed">Breed:</label>
-        <input type="text" id="breed" name="breed">
-
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age">
-
-        <label for="gender">Gender:</label>
-        <input type="text" id="gender" name="gender">
-
-        <label for="vaccination_status">Vaccination Status:</label>
-        <input type="text" id="vaccination_status" name="vaccination_status">
-
+    <form action="/add-pet" method="POST" id="add-pet">
+        <input type="text" id="name" name="name" placeholder="Pet name..." required>
+        <input type="text" id="breed" name="breed" placeholder="Breed...">
+        <input type="number" id="age" name="age" placeholder="Age...">
+        <input type="text" id="gender" name="gender" placeholder="Gender...">
+        <input type="text" id="vaccination_status" name="vaccination_status" placeholder="Vaccination Status">
         <button type="submit">Add Pet</button>
     </form>
 
     <h2>View All Pets</h2>
     <button id="viewPetsBtn">View Pets</button>
 
-    <div id="petsModal" class="modal">
+    <div id="petsModal" class="modal" role="dialog" aria-labelledby="modalTitle">
         <div class="modal-content">
-
-            <span class="close">&times;</span>
-            <h2>List of Pets</h2>
-            <ul id="petsList">
-            </ul>
+            <span class="close" aria-label="Close modal">×</span>
+            <h2 id="modalTitle">List of Pets</h2>
+            <ul id="petsList"></ul>
         </div>
     </div>
+
     <h2>Search Pet</h2>
     <form id="searchForm">
         <label for="searchName">Pet Name:</label>
@@ -52,64 +50,83 @@
 
     <ul id="searchResults"></ul>
 
+    <script>
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
 
-</body>
-<script>
-    document.getElementById("viewPetsBtn").onclick = function () {
-        fetch("/api/pets")
-            .then(response => response.json())
-            .then(data => {
-                const petsList = document.getElementById("petsList");
-                petsList.innerHTML = "";
-                data.forEach(pet => {
-                    const li = document.createElement("li");
-                    li.textContent = `${pet.name} - ${pet.breed} - ${pet.age} years old - ${pet.gender} - Vaccination: ${pet.vaccination_status}`;
-                    petsList.appendChild(li);
-                });
-
-                // Show the modal
-                document.getElementById("petsModal").style.display = "block";
-            });
-    };
-
-    document.querySelector(".close").onclick = function () {
-        document.getElementById("petsModal").style.display = "none";
-    };
-
-    window.onclick = function (event) {
-        if (event.target === document.getElementById("petsModal")) {
-            document.getElementById("petsModal").style.display = "none";
+        // Load saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
         }
-    };
-</script>
-<script>
-    document.getElementById("searchForm").onsubmit = function (e) {
-        e.preventDefault();
-        const name = document.getElementById("searchName").value;
 
-        fetch(`/api/search?name=${encodeURIComponent(name)}`)
-            .then(res => res.json())
-            .then(data => {
-                const results = document.getElementById("searchResults");
-                results.innerHTML = "";
-                if (data.length === 0) {
-                    results.innerHTML = "<li>No pets found.</li>";
-                } else {
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeToggle.textContent = '☀️';
+                darkModeToggle.setAttribute('aria-label', 'Switch to light mode');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                darkModeToggle.textContent = '🌙';
+                darkModeToggle.setAttribute('aria-label', 'Switch to dark mode');
+            }
+        });
+
+        // View Pets Modal
+        document.getElementById("viewPetsBtn").onclick = function () {
+            fetch("/api/pets")
+                .then(response => response.json())
+                .then(data => {
+                    const petsList = document.getElementById("petsList");
+                    petsList.innerHTML = "";
                     data.forEach(pet => {
                         const li = document.createElement("li");
-                        li.innerHTML = `
-    <strong>Name:</strong> ${pet.name}<br>
-    <strong>Breed:</strong> ${pet.breed}<br>
-    <strong>Age:</strong> ${pet.age} years<br>
-    <strong>Gender:</strong> ${pet.gender}<br>
-    <strong>Vaccination:</strong> ${pet.vaccination_status}
-`;
-
-                        results.appendChild(li);
+                        li.textContent = `${pet.name} - ${pet.breed} - ${pet.age} years old - ${pet.gender} - Vaccination: ${pet.vaccination_status}`;
+                        petsList.appendChild(li);
                     });
-                }
-            });
-    };
-</script>
+                    document.getElementById("petsModal").style.display = "block";
+                });
+        };
+
+        document.querySelector(".close").onclick = function () {
+            document.getElementById("petsModal").style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target === document.getElementById("petsModal")) {
+                document.getElementById("petsModal").style.display = "none";
+            }
+        };
+
+        // Search Form
+        document.getElementById("searchForm").onsubmit = function (e) {
+            e.preventDefault();
+            const name = document.getElementById("searchName").value;
+            fetch(`/api/search?name=${encodeURIComponent(name)}`)
+                .then(res => res.json())
+                .then(data => {
+                    const results = document.getElementById("searchResults");
+                    results.innerHTML = "";
+                    if (data.length === 0) {
+                        results.innerHTML = "<li>No pets found.</li>";
+                    } else {
+                        data.forEach(pet => {
+                            const li = document.createElement("li");
+                            li.innerHTML = `
+                                <strong>Name:</strong> ${pet.name}<br>
+                                <strong>Breed:</strong> ${pet.breed}<br>
+                                <strong>Age:</strong> ${pet.age} years<br>
+                                <strong>Gender:</strong> ${pet.gender}<br>
+                                <strong>Vaccination:</strong> ${pet.vaccination_status}
+                            `;
+                            results.appendChild(li);
+                        });
+                    }
+                });
+        };
+    </script>
+</body>
 
 </html>
