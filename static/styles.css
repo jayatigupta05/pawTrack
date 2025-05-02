@@ -1,0 +1,579 @@
+/* Import Google Fonts for Poppins and Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Roboto:wght@400;700&display=swap');
+
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling with fancy animated gradient background */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(45deg, #e6f3d5, #a5d6a7, #80deea, #fff9c4);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: #2e2e2e;
+    line-height: 1.7;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    transition: color 0.3s ease;
+}
+
+/* Pseudo-element for paw print overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="1" stroke-opacity="0.2"><path d="M12 21c-3 0-5.5-2.5-5.5-5.5 0-2 1.2-3.7 3-4.5.5-1.2 1.7-2 3-2s2.5.8 3 2c1.8.8 3 2.5 3 4.5 0 3-2.5 5.5-5.5 5.5z"/><circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/><circle cx="7" cy="13" r="1"/><circle cx="17" cy="13" r="1"/></svg>') repeat;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+/* Dark mode background */
+body.dark-mode {
+    background: linear-gradient(45deg, #1a1a1a, #2e7d32, #37474f, #4e342e);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    color: #e0e0e0;
+}
+
+body.dark-mode::before {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="%23e0e0e0" stroke-width="1" stroke-opacity="0.2"><path d="M12 21c-3 0-5.5-2.5-5.5-5.5 0-2 1.2-3.7 3-4.5.5-1.2 1.7-2 3-2s2.5.8 3 2c1.8.8 3 2.5 3 4.5 0 3-2.5 5.5-5.5 5.5z"/><circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/><circle cx="7" cy="13" r="1"/><circle cx="17" cy="13" r="1"/></svg>') repeat;
+}
+
+/* Gradient animation */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Sticky header with enhanced glassmorphism */
+.header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(12px) !important;
+    padding: 15px 30px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    margin-bottom: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+body.dark-mode .header {
+    background: rgba(30, 30, 30, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+nav {
+    display: flex !important;
+}
+
+nav a {
+    color: #fff !important;
+    text-decoration: none !important;
+    font-size: 1.1rem !important;
+    margin: 0 15px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease !important;
+}
+
+nav a:hover, nav a:focus {
+    background-color: rgba(76, 175, 80, 0.3) !important;
+    color: #e6f3d5 !important;
+    transform: translateY(-2px) !important;
+}
+
+nav a:focus {
+    outline: 2px solid #4CAF50 !important;
+    outline-offset: 2px !important;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 2.2rem !important;
+    color: #fff !important;
+    margin-left: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+h1::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+    margin-right: 12px;
+}
+
+/* Section headers */
+h2 {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin: 40px 0 20px;
+    font-size: 1.9rem;
+    color: #2e7d32;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode h2 {
+    color: #a5d6a7;
+}
+
+/* Form styling with floating labels */
+form {
+    background: rgba(255, 255, 255, 0.9) !important;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    backdrop-filter: blur(5px) !important;
+}
+
+body.dark-mode form {
+    background: rgba(30, 30, 30, 0.9) !important;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+form label {
+    position: absolute;
+    top: 12px;
+    left: 40px;
+    font-size: 1rem;
+    color: #666;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+body.dark-mode form label {
+    color: #b0b0b0;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    margin: 10px;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>') no-repeat 10px center;
+    background-size: 18px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+form input[type="number"] {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l2 2"></path><circle cx="12" cy="12" r="10"></circle></svg>') no-repeat 10px center;
+    background-size: 18px;
+}
+
+form input:focus,
+form input:valid {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+    transform: scale(1.02);
+}
+
+form input:focus + label,
+form input:valid + label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #4CAF50;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0 5px;
+}
+
+body.dark-mode form input:focus + label,
+body.dark-mode form input:valid + label {
+    background: rgba(30, 30, 30, 0.9);
+}
+
+form input.error {
+    border-color: #e57373;
+    background-color: rgba(229, 115, 115, 0.1);
+}
+
+/* Submit button */
+form button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15), -4px -4px 8px rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+form button:hover,
+form button:focus {
+    background: linear-gradient(135deg, #388e3c 0%, #1b5e20 100%);
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.7);
+}
+
+form button:focus {
+    outline: 2px solid #2e7d32;
+    outline-offset: 2px;
+}
+
+form button.loading::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+    margin-left: 10px;
+}
+
+form button::before {
+    content: '🐕';
+    margin-right: 8px;
+}
+
+/* Modal styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.95) !important;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    animation: slideIn 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    backdrop-filter: blur(5px) !important;
+}
+
+body.dark-mode .modal-content {
+    background: rgba(30, 30, 30, 0.95) !important;
+}
+
+/* Close button */
+.close {
+    color: #666;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    align-self: flex-end;
+}
+
+body.dark-mode .close {
+    background: rgba(80, 80, 80, 0.8);
+    color: #e0e0e0;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    background: #e57373;
+}
+
+.close:focus {
+    outline: 2px solid #e57373;
+    outline-offset: 2px;
+}
+
+#viewPetsBtn {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px;
+    background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15), -4px -4px 8px rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+}
+
+#viewPetsBtn:hover,
+#viewPetsBtn:focus {
+    background: linear-gradient(135deg, #388e3c 0%, #1b5e20 100%);
+    transform: translateY(-2px);
+}
+
+#viewPetsBtn:focus {
+    outline: 2px solid #2e7d32;
+    outline-offset: 2px;
+}
+
+#viewPetsBtn::before {
+    content: '👀';
+    margin-right: 8px;
+}
+
+/* List items */
+ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0;
+}
+
+ul li {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(5px) !important;
+}
+
+body.dark-mode ul li {
+    background: rgba(60, 60, 60, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+ul li:hover,
+ul li:focus {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+ul li:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+ul li::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%234CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>');
+    margin-right: 10px;
+}
+
+/* Search input */
+#searchInput {
+    width: 100%;
+    max-width: 450px;
+    padding: 12px 40px 12px 40px;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    font-size: 1rem;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>') no-repeat 10px center;
+    background-size: 18px;
+    transition: all 0.3s ease;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+body.dark-mode #searchInput {
+    background-color: rgba(60, 60, 60, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+#searchInput:not(:placeholder-shown) + .clear-search {
+    display: block;
+}
+
+#searchInput:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+.clear-search {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #e57373;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-search:hover,
+.clear-search:focus {
+    background: #d32f2f;
+}
+
+.clear-search:focus {
+    outline: 2px solid #e57373;
+    outline-offset: 2px;
+}
+
+/* Dark mode toggle */
+#darkModeToggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    background: linear-gradient(135deg, #4CAF50 0%, #2e7d32 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+#darkModeToggle:hover,
+#darkModeToggle:focus {
+    background: linear-gradient(135deg, #388e3c 0%, #1b5e20 100%);
+    transform: translateY(-2px);
+}
+
+#darkModeToggle:focus {
+    outline: 2px solid #2e7d32;
+    outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 8px rgba(76, 175, 80, 0.3); }
+    50% { box-shadow: 0 0 12px rgba(76, 175, 80, 0.5); }
+    100% { box-shadow: 0 0 8px rgba(76, 175, 80, 0.3); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 15px !important;
+    }
+
+    nav {
+        display: none !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+    }
+
+    nav.active {
+        display: flex !important;
+    }
+
+    nav a {
+        margin: 5px 0 !important;
+        text-align: center !important;
+    }
+
+    .hamburger {
+        display: block !important;
+        position: absolute !important;
+        right: 20px !important;
+        top: 20px !important;
+        cursor: pointer !important;
+        font-size: 1.5rem !important;
+        color: #fff !important;
+    }
+
+    h1 {
+        font-size: 1.8rem !important;
+        margin-left: 10px !important;
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        max-height: 90vh;
+    }
+
+    ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    form {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    #viewPetsBtn {
+        max-width: 100%;
+    }
+
+    #searchInput {
+        max-width: 100%;
+    }
+
+    body::before {
+        background-size: 30px 30px;
+    }
+}
